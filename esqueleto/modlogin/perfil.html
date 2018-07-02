@@ -1,0 +1,282 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <section class="content" ng-controller="PerfilController as c">
+
+            <section ng-if="help" class="help-box" style="">
+                <h5 class="bold" style="margin-top: 0px;">
+                    Imagem de Perfil:
+                </h5>
+                <p> Clicando-se no botão alterar, é possível que o operador troque sua foto, porém é preciso lembrar que somente
+                    após o salvamento da ação é que a imagem será trocada de fato.
+                    <br /> A ação de remover foto de perfil também necessita do sucesso da ação de salvar.
+                </p>
+                <h5 class="bold">
+                    Nascimento:
+                </h5>
+                <p style="margin-bottom: 20px;">
+                    Data no formado <span class="bold">dd/mm/aaaa</span>, para preencher este campo basta que o usuário informe números.
+                    No momento que o campo perde o foco, o valor é corretamente formatado.
+                    <br /><br /> É possível ainda clicar no ícone <i class="fa fa-calendar"></i> para selecionar a data por meio de uma pop-up.
+                </p>
+                <h5 class="bold">
+                    Celular:
+                </h5>
+                <p style="margin-bottom: 20px;">
+                    Para este campo, basta que o usuário informe números. No momento que o campo perde o foco, o valor é
+                    corretamente formatado para o formatado de número de celular.
+                    <br /><br /> É preciso notar que é obrigatório informar o DDD durante o preenchimento deste campo.
+                </p>
+                <h5 class="bold">
+                    Telefone:
+                </h5>
+                <p style="margin-bottom: 20px;">
+                    Para este campo, basta que o usuário informe números. No momento que o campo perde o foco, o valor é
+                    corretamente formatado para o formatado de número de telefone fixo.
+                    <br /><br /> É preciso notar que é obrigatório informar o DDD durante o preenchimento deste campo.
+                </p>
+
+                <h5 class="bold">
+                    Endereço:
+                </h5>
+                <p>
+                    É possível buscar o endereço a partir do CEP. Caso o sistema não encontre seu endereço a partir do CEP,
+                    será necessário preencher as informações manualmente.
+                </p>
+
+                <h5 class="bold">
+                    Segurança:
+                </h5>
+                <p style="margin-bottom: 0px;">
+                    Caso desejar, é possível alterar a senha bastando informar a nova senha e confirmar a ação no botão de salvar.
+                </p>
+            </section>
+
+            <div class="main padder" ng-init="c.load()">
+
+                <div class="row" style="margin-top: 15px;">
+                    <div class="col-sm-6">
+                        <div class="row margin-none padding-none">
+                            <section class="panel">
+                                <header class="panel-heading h4 margin-none">
+                                    <i class="fa fa-user fa-ic"></i> Geral
+                                </header>
+                                <div class="panel-body">
+                                    <form class="form-horizontal margin-none">
+                                        <div>
+                                            <div class="form-group">
+                                                <div class="media col-lg-9 col-lg-offset-3">
+                                                    <div id="image_background" class="pull-left text-center media-large thumb-large" ng-class="{'bg-light' : !hideFa}">
+                                                        <img id="fotoca" ng-src="{{perfil.foto90x79}}" ng-hide="!hideFa">
+                                                        <i class="fa fa-user fa-perfil" ng-hide="hideFa" ng-class="{ 'fa-rosa' : perfil.sexo === 'F' }"></i>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <div class="file-input-wrapper btn btn-sm btn-info m-b-small" style="width:76px;margin-bottom:0;">
+                                                            Alterar
+                                                            <input type="file" ng-file-select ng-model="picFile" name="file" accept="image/*"
+                                                                ng-file-change="generateThumb(picFile[0], $files)"
+                                                                ng-multiple="false" onclick="this.value = null" class="btn btn-sm btn-info m-b-small" />
+                                                        </div>
+                                                        <br />
+                                                        <br />
+                                                        <button class="btn btn-sm btn-white" style="width:76px;" ng-click="c.remover($event)">Remover</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label class="col-lg-3 control-label">Nome<span class="text-danger">*</span>:</label>
+                                                <div class="col-lg-5">
+                                                    <input type="text" id="nome" class="form-control" ng-model="perfil.nome"
+                                                        validationFieldRequired />
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label class="col-lg-3 control-label">Sobrenome<span class="text-danger">*</span>:</label>
+                                                <div class="col-lg-5">
+                                                    <input type="text" id="sobrenome" class="form-control" ng-model="perfil.sobrenome"
+                                                        validationFieldRequired />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">Nascimento<span class="text-danger">*</span>:</label>
+                                                <div class="col-lg-9">
+                                                    <input id="nascimento" class="form-control input-i" type="text"
+                                                        placeholder="ex: 01/01/1990  (apenas números)"
+                                                        validationFieldRequired
+                                                        validationDateFormat
+                                                        validationDateBeforeToday
+                                                        onfocus="maskOut(this, 'data')"
+                                                        onblur="maskIn(this, 'data')"
+                                                        onkeyup="checktype(this, 'data');"/>
+                                                    <i class="fa fa-calendar i-in-input-filter-aluno"></i>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">Celular:</label>
+                                                <div class="col-lg-9">
+                                                    <input class="form-control" id="celular"
+                                                        placeholder="ex: (99) 99999-9999  (apenas números)"
+                                                        onfocus="maskOut(this, 'cel')"
+                                                        onblur="maskIn(this, 'cel')"
+                                                        onkeyup="checktype(this, 'cel');"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">Telefone:</label>
+                                                <div class="col-lg-9">
+                                                    <input class="form-control" id="telefone"
+                                                        placeholder="ex: (33) 3333-3333  (apenas números)"
+                                                        onfocus="maskOut(this, 'fone')"
+                                                        onblur="maskIn(this, 'fone')"
+                                                        onkeyup="checktype(this, 'fone');"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group margin-bottom-none">
+                                                <label class="col-lg-3 control-label">Sexo:</label>
+                                                <div class="col-lg-9 sexo">
+                                                    <label><input type="radio" class="nada" value="M" ng-model="perfil.sexo"/> Masculino</label>
+                                                    <label><input type="radio" class="nada" value="F" ng-model="perfil.sexo"/> Feminino</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="row margin-none padding-none" ng-class="{'invisivel' : false}">
+                            <section class="panel">
+                                <header class="panel-heading h4 margin-none">
+                                    <i class="fa fa-lock fa-ic"></i> Segurança
+                                </header>
+                                <div class="panel-body">
+                                    <form class="form-horizontal margin-none">
+                                        <div class="block pass">
+                                            <label class="col-lg-3 control-label">Alterar Senha</label>
+                                            <div class="col-lg-7">
+                                                <input type="password" id="senha" class="bg-focus form-control" ng-model="perfil.novaSenha" placeholder="Nova Senha"
+                                                    autocomplete="off"
+                                                    maxlength="30"
+                                                    validationMinLength="8"
+                                                    validationMaxLength="26"
+                                                    validationOneUpperCaseLetter
+                                                    validationOneLowerCaseLetter
+                                                    validationOneNumber />
+                                                <input type="password" id="senha2" class="bg-focus form-control" ng-model="perfil.novaSenha2" placeholder="Confirmar Senha"
+                                                    autocomplete="off"
+                                                    maxlength="30"
+                                                    validationConfirmPassword />
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <section class="panel">
+                            <header class="panel-heading h4 margin-none">
+                                <i class="fa fa-map-marker fa-ic"></i> Endereço
+                            </header>
+                            <div class="panel-body">
+                                <form class="form-horizontal margin-none">
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">CEP:</label>
+                                        <div class="col-lg-7">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="cep" id="cep"
+                                                    placeholder="ex: 99999-999  (apenas números)"
+                                                    onfocus="maskOut(this, 'cep')"
+                                                    onblur="maskIn(this, 'cep')"
+                                                    onkeyup="checktype(this, 'cep');"/>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-info" ng-click="c.getEndereco()">Localizar</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Rua:</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="text" name="rua" ng-model="perfil.rua">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Número:</label>
+                                        <div class="col-lg-2">
+                                            <input id="numero" class="form-control" type="text" name="numero" ng-model="perfil.numero">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Bairro:</label>
+                                        <div class="col-lg-5">
+                                            <input class="form-control" type="text" name="bairro" ng-model="perfil.bairro">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Cidade:</label>
+                                        <div class="col-lg-5">
+                                            <input class="form-control" type="text" name="cidade" ng-model="perfil.cidade">
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="col-lg-2 control-label">Estado:</label>
+                                        <div class="col-lg-3">
+                                            <select class="form-control" name="estado"  ng-model="perfil.estado">
+                                                <option value="">-</option>
+                                                <option value="AC">AC</option>
+                                                <option value="AL">AL</option>
+                                                <option value="AM">AM</option>
+                                                <option value="AP">AP</option>
+                                                <option value="BA">BA</option>
+                                                <option value="CE">CE</option>
+                                                <option value="DF">DF</option>
+                                                <option value="ES">ES</option>
+                                                <option value="GO">GO</option>
+                                                <option value="MA">MA</option>
+                                                <option value="MG">MG</option>
+                                                <option value="MS">MS</option>
+                                                <option value="MT">MT</option>
+                                                <option value="PA">PA</option>
+                                                <option value="PB">PB</option>
+                                                <option value="PE">PE</option>
+                                                <option value="PI">PI</option>
+                                                <option value="PR">PR</option>
+                                                <option value="RJ">RJ</option>
+                                                <option value="RN">RN</option>
+                                                <option value="RS">RS</option>
+                                                <option value="RO">RO</option>
+                                                <option value="RR">RR</option>
+                                                <option value="SC">SC</option>
+                                                <option value="SE">SE</option>
+                                                <option value="SP">SP</option>
+                                                <option value="TO">TO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="row soh-flex m-l--16">
+                    <button type="button" ng-click="c.cancelar()" class="btn btn-voltar ripple" ng-class="{'invisivel' : appAluno}">
+                        <div class="h3">
+                            <i class="fa fa-arrow-left"></i>
+                            <span class="">Voltar</span>
+                        </div>
+                    </button>
+
+                    <button id="btnSalvar" type="button" ng-click="c.salvar()" class="btn btn-salvar ripple" ng-class="{'width-100p' : appAluno}">
+                        <div class="h3" ng-class="{'text-center' : appAluno}">
+                            <i class="fa fa-check"></i>
+                            <span class="">Salvar</span>
+                        </div>
+                    </button>
+                </div>
+        </section>
+    </body>
+</html>

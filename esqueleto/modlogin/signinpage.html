@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <style>
+            html, #content {
+                background-color: #A8DBFA;
+            }
+        </style>
+        <section id="" ng-controller="LoginController as c">
+            <div class="main">
+                <div class="padding-none">
+                    <section class="">
+                        <form action="index.html" class="panel-body" style="margin-bottom: 0;padding-bottom: 5px;">
+                            <div class="group input-group">
+                                <span class="input-group-addon bg-transparent only-bottom-border">
+                                    <i class="fa fa-user size-20" style="color:#4f4f4f;"></i>
+                                </span>
+                                <input type="email" id="emailLogin" placeholder="E-mail" style="color:#4f4f4f;"
+                                    class="material-type-text text-left bg-transparent text-white pl size-20"
+                                    ng-model="emailLogin"
+                                    autofocus
+                                    validationFieldRequired
+                                    validationEmail />
+                                <span class="bar " style="width: 100%;"></span>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="group input-group">
+                                <span class="input-group-addon bg-transparent only-bottom-border">
+                                    <i class="fa fa-lock size-20" style="color:#4f4f4f;"></i>
+                                </span>
+                                <input type="password" id="senhaLogin" placeholder="Senha" style="color:#4f4f4f;"
+                                    class="material-type-text bg-transparent text-white pl size-20"
+                                    ng-model="senhaLogin"
+                                    autocomplete="off"
+                                    validationFieldRequired />
+                                <span class="bar " style="width: 100%;"></span>
+                            </div>
+                            <br />
+                            <a ui-sref="modlogin.esquecisenha" class="pull-right"><small>Esqueceu sua senha?</small></a>
+                            <br /><br />
+                            <button type="submit" class="btn btn-consultar ripple" style="width: 100%; font-size: 24px;" ng-click="c.login($event)">Entrar</button>
+                            <br />
+                            <br />
+                            <div class="line line-dashed"></div>
+                            <p class="text-muted text-center"><small>Não tem uma conta?</small></p>
+                            <a ui-sref="modlogin.signuppage" class="btn btn-signup btn-block btn-192636 ripple">Crie uma conta</a>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/font.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/body.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/ajaxLoading.css" />
+
+        <!-- <script type="text/javascript" src="appweb/cordova.js"></script> -->
+
+        <!-- LIBS -->
+        <script type="text/javascript" src="assets/js/lib/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="assets/js/lib/angular.min.js"></script>
+
+        <script type="text/javascript" src="assets/js/lib/jquery.flot.min.js"></script>
+        <script type="text/javascript" src="assets/js/lib/jquery.flot.resize.min.js"></script>
+        <script type="text/javascript" src="assets/js/lib/jquery.flot.pie.min.js"></script>
+        <script type="text/javascript" src="assets/js/lib/angular-flot.js"></script>
+
+        <!-- SERVICES -->
+        <script type="text/javascript" src="assets/js/services/servicoRequest.js"></script>
+        <script type="text/javascript" src="assets/js/services/servicoData.js"></script>
+        <!-- CONTROLLERS -->
+        <script type="text/javascript" src="assets/js/testeController.js"></script>
+
+        <!-- OUTROS -->
+        <script type="text/javascript" src="assets/js/utils.js"></script>
+        <script type="text/javascript" src="assets/js/app.js"></script>
+        
+        <script type="text/javascript" src="backend_testes.js"></script>
+
+        <title>Testes</title>
+
+    </head>
+    <body id="body" ng-app="workoutapp">
+
+        <section ng-controller="TesteController as c">
+
+            <span class="h2">Serviços</span>
+            <div class="row text-right" ng-init="c.startTestes()">
+                <div class="col-lg-6 bg-primary" style="padding: 4px 10px;">
+                    <span class="h2" ng-bind="totalSuccess"></span>
+                </div>
+                <div class="col-lg-6 bg-danger" style="padding: 4px 20px;">
+                    <span class="h2" ng-bind="totalFail"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="" ng-class="{'invisivel' : hideLoad }">
+                        <br/>
+                        <img class="center-block" ng-src="{{gifload}}" />
+                    </div>
+                    <ul class="list-group m-b-small">
+                        <li class="list-group-item"
+                           ng-repeat="(servicoIndex, s) in servicos track by $index" ng-class-odd="'bg-lighter'"                          
+                           >
+                            <div class="pointer"
+                                 ng-click="arrServicoDetalheShow[$index] = arrServicoDetalheShow[$index] === undefined ? true : !arrServicoDetalheShow[$index]">
+                                <span class="bold" ng-bind="s.nome"></span>
+                                <i class="fa right" ng-class="{'fa-chevron-right' : !arrServicoDetalheShow[$index], 'fa-chevron-down' : arrServicoDetalheShow[$index]}"></i>
+                                <span class="badge bg-danger right" style="margin-right: 10px;"
+                                      ng-class="{'invisivel' : s.totalFail === 0}"
+                                      ng-bind="s.totalFail">                                          
+                                </span>
+                                <span class="badge bg-primary right" style="margin-right: 5px;"
+                                      ng-class="{'invisivel' : s.totalSuccess === 0}"
+                                      ng-bind="s.totalSuccess">                                          
+                                </span>
+                            </div>
+                            <div class="panel-body" ng-class="{'invisivel' : !arrServicoDetalheShow[$index]}">
+                                <ul class="list-group m-b-small">
+                                    <li class="list-group-item" style="padding: 5px 0px;"
+                                       ng-repeat="t in s.testes track by $index"
+                                       >
+                                        <div class="pointer"
+                                             ng-class="{'text-primary':t.result, 'text-danger':!t.result}"
+                                             ng-click="arrTesteShow[servicoIndex][$index] = arrTesteShow[servicoIndex][$index] === undefined ? true : !arrTesteShow[servicoIndex][$index]">
+                                            {{$index+1}}. <span class="" ng-bind="t.nome"></span>
+                                            <i class="fa right" ng-class="{'fa-chevron-right' : !arrTesteShow[servicoIndex][$index], 'fa-chevron-down' : arrTesteShow[servicoIndex][$index]}"></i>
+                                        </div>
+                                        <div class="panel-body" ng-class="{'invisivel' : !arrTesteShow[servicoIndex][$index]}">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    URL: <small ng-bind="t.url"></small><br/><br/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <span class="h4">Retorno Esperado</span><br/><br/>
+                                                    <textarea rows="5" style="width: 100%;">{{t.retornoEsperado}}</textarea> 
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <span class="h4">Retorno</span><br/><br/>
+                                                    <textarea rows="5" style="width: 100%;">{{t.retorno}}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row" ng-class="{'invisivel' : t.dif.length == 0}">
+                                                <div class="col-lg-12">
+                                                    <br/>
+                                                    <span class="h4">Diferenças</span><br/><br/>
+                                                    <textarea rows="5" style="width: 100%;">{{t.dif}}</textarea> 
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <br/>
+                                                    <span class="h4">POST</span><br/><br/>
+                                                    <textarea rows="5" style="width: 100%;">{{t.postFields}}</textarea> 
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>	
+
+        </section>
+        
+    </body>
+</html>

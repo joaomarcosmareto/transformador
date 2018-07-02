@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <section id="content" ng-controller="LoginController as c">
+            <div class="main">
+                <div class="padding-none">
+                    <section class="">
+                        <form action="index.html" class="panel-body" novalidate style="margin-bottom: 0;padding-bottom: 5px;">
+                            <div class="group input-group">
+                                <span class="input-group-addon bg-transparent only-bottom-border">
+                                    <i class="fa fa-user size-20" style="color:#4f4f4f;"></i>
+                                </span>
+                                <input type="email" id="emailEsqueciSenha" placeholder="E-mail" style="color:#4f4f4f;"
+                                    class="material-type-text text-left bg-transparent text-white pl size-20"
+                                    ng-model="emailEsqueciSenha"
+                                    autofocus
+                                    validationFieldRequired
+                                    validationEmail />
+                                <span class="bar " style="width: 100%;"></span>
+                            </div>
+                            <br /><br />
+                            <button type="button" class="btn btn-white ripple font-size-modlogin"  style="width:49%;padding-top: 9px; padding-bottom: 9px; color: #192636;" ng-click="c.cancelar()">Voltar</button>
+                            <button type="submit" class="btn btn-consultar ripple font-size-modlogin" style="width:49%;" ng-click="c.recuperarSenha($event)">Enviar</button>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

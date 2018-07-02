@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <section id="content" ng-controller="LoginController as c">
+            <div class="main">
+                <div class="padding-none">
+                    <section class="">
+                        <form action="index.html" class="panel-body" style="margin-bottom: 0;padding-bottom: 5px;">
+                            <div class="group input-group">
+                                <span class="input-group-addon bg-transparent only-bottom-border">
+                                    <i class="fa fa-key size-16" style="color:#4f4f4f;"></i>
+                                </span>
+                                <input type="text" id="codigo" placeholder="E-mail" style="color:#4f4f4f;"
+                                    class="material-type-text text-left bg-transparent text-white pl size-16"
+                                    ng-model="email"
+                                    autofocus
+                                    autocomplete="off"
+                                    validationFieldRequired
+                                    validationEmail />
+                                <span class="bar " style="width: 100%;"></span>
+                            </div>
+                            <br /><br />
+                            <button type="submit" class="btn btn-consultar ripple" style="width: 100%; font-size: 24px;" ng-click="c.confirmarCadastro($event)">Confirmar cadastro</button>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <section id="content" ng-controller="LoginController as c">
+            <div class="main" style="padding:5px;">
+                <div class="padding-none">
+                    <section class="panel" style="margin-bottom: 0;">
+                        <ul class="list-group center">
+                            <li class="list-group-item pointer" ng-repeat="a in academias" ng-click="selecionarAcademia(a)">
+                                <div ng-class="{'invisivel': a.logo === undefined || a.logo === null}">
+                                    <div class="text-center media-large thumb-large">
+                                        <img id="fotoca" ng-src="{{a.logo}}" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="list-group-item-heading h4 bold" ng-bind="a.nome"></span>
+                                    <br />
+                                    <span class="list-group-item-text font-14" ng-bind="a.bairro"></span>
+                                    <br />
+                                    <span class="list-group-item-text font-14" ng-bind="a.telefone1"></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

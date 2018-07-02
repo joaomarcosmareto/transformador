@@ -1,0 +1,14 @@
+{
+    "require": {
+        "phpmailer/phpmailer": "^5.2",
+        "coldume/imagecraft": "^1.0",
+        "mikehaertl/phpwkhtmltopdf": "^2.1",
+        "lcobucci/jwt": "^3.2",
+        "slim/slim": "^3.1",
+        "monolog/monolog": "^1.17",
+        "mongodb/mongodb": "^1.2"
+    },
+	"autoload": {
+       "psr-4": {"core\\": "core/"}
+   }
+}

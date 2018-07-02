@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <section id="content" ng-controller="LoginController as c">
+            <div class="main">
+                <div class="padding-none">
+                    <section class="">
+                        <form action="index.html" class="panel-body" style="margin-bottom: 0;padding-bottom: 5px;">
+                            <div class="block">
+                                <p class="size-16"><input id="termos" name="termos" type="checkbox" value="A" ng-model="termos">
+                                    Li e aceito os
+                                    <b><a ui-sref="modlogin.termos">Termos de Serviço e a Política de Privacidade</a></b>
+                                        do Igreja Online.
+                                </p>
+                            </div>
+                            <br />
+                            <div class="group input-group">
+                                <span class="input-group-addon bg-transparent only-bottom-border">
+                                    <i class="fa fa-user size-16" style="color:#4f4f4f;"></i>
+                                </span>
+                                <input type="text" id="nomeSignup" placeholder="Nome" style="color:#4f4f4f;"
+                                    class="material-type-text text-left bg-transparent text-white pl size-16"
+                                    ng-model="nomeSignup"
+                                    autofocus
+                                    validationFieldRequired/>
+                                <span class="bar " style="width: 100%;"></span>
+                            </div>
+                            <br />
+                            <div class="group input-group">
+                                <span class="input-group-addon bg-transparent only-bottom-border">
+                                    <i class="fa fa-user size-16" style="color:#4f4f4f;"></i>
+                                </span>
+                                <input type="text" id="sobrenome" placeholder="Sobrenome" style="color:#4f4f4f;"
+                                    class="material-type-text text-left bg-transparent text-white pl size-16"
+                                    ng-model="sobrenome"
+                                    validationFieldRequired/>
+                                <span class="bar " style="width: 100%;"></span>
+                            </div>
+                            <br />
+                            <div class="group input-group">
+                                <span class="input-group-addon bg-transparent only-bottom-border">
+                                    <i class="fa fa-calendar size-16" style="color:#4f4f4f;"></i>
+                                </span>
+                                <input type="text" id="aniversario" placeholder="Nascimento" style="color:#4f4f4f;"
+                                    class="material-type-text text-left bg-transparent text-white pl size-16"
+                                        validationFieldRequired
+                                        validationDateFormat
+                                        validationDateBeforeToday
+                                        onfocus="maskOut(this, 'data')"
+                                        onblur="maskIn(this, 'data')"
+                                        onkeyup="checktype(this, 'data');"/>
+                                <span class="bar " style="width: 100%;"></span>
+                            </div>
+                            <br />
+                            <div class="group input-group">
+                                <span class="input-group-addon bg-transparent only-bottom-border">
+                                    <i class="fa fa-envelope-o size-16" style="color:#4f4f4f;"></i>
+                                </span>
+                                <input type="email" id="email" placeholder="E-mail" style="color:#4f4f4f;"
+                                    class="material-type-text text-left bg-transparent text-white pl size-16"
+                                        ng-model="emailSignup"
+                                        autocomplete="off"
+                                        validationFieldRequired
+                                        validationEmail />
+                                <span class="bar " style="width: 100%;"></span>
+                            </div>
+                            <br />
+                            <div class="group input-group">
+                                <span class="input-group-addon bg-transparent only-bottom-border">
+                                    <i class="fa fa-lock size-16" style="color:#4f4f4f;"></i>
+                                </span>
+                                <input type="password" id="senhaSignup" placeholder="Senha *" style="color:#4f4f4f;"
+                                    class="material-type-text text-left bg-transparent text-white pl size-16"
+                                        ng-model="senhaSignup"
+                                        autocomplete="off"
+                                        validationFieldRequired
+                                        validationMinLength="8"
+                                        validationMaxLength="26"
+                                        validationonealphabet
+                                        validationOneNumber />
+                                <span class="bar " style="width: 100%;"></span>
+                            </div>
+                            <small class="text-danger" style="font-size:12px;">* A senha deve conter no mínimo 8 caracteres, incluindo letras e números. </small>
+                            <br /><br />
+                            <div class="block sexo">
+                                <label class="size-16"><input name="gender" type="radio" ng-model="sexo" value="M"> Masculino</label> &nbsp;&nbsp;
+                                <label class="size-16"><input name="gender" type="radio" ng-model="sexo" value="F"> Feminino</label>
+                            </div>
+                            <br />
+                            <button type="button" class="btn btn-white ripple font-size-modlogin"  style="width:49%;padding-top: 9px; padding-bottom: 9px; color: #192636;" ng-click="c.cancelar()">Voltar</button>
+                            <button type="submit" class="btn btn-consultar ripple font-size-modlogin" style="width:49%;" ng-click="c.createAccount($event)">Criar</button>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
