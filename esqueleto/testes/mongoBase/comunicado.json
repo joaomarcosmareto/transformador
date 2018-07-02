@@ -1,0 +1,1 @@
+{ "_id" : { "$oid" : "56c9a93451226203246681a8" }, "titulo" : "Teste", "descricao" : "Lá lá lá\r\nasdasdasd\r\n\r\nasdasd", "dataInicio" : "2016-02-21", "dataFim" : "2100-01-01", "academia_id" : { "$oid" : "56b3ca0d51226205048b45a1" }, "dataCriacao" : "2016-02-21 09:10:28", "dataAlteracao" : null, "usuarioAlteracao" : { "$oid" : "56b3ca0d51226205048b4596" }, "removido" : false }

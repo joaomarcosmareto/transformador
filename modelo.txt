@@ -1,0 +1,33 @@
+{
+    "nome": "Teste",
+    "caracter_replace": "§",
+    "tags_replace": [
+        {
+            "nome": "sistema",
+            "valor": "teste"
+        },
+        {
+            "nome": "Sistema",
+            "valor": "Teste"
+        }
+    ],
+    "entidades":
+    [
+        {
+            "nome": "NCM",
+            "campos": [
+                {"nome": "_id", "tipo_dado": "id", "tipo_campo": "text"},
+                {"nome": "descricao", "tipo_dado": "string", "tipo_campo": "text"},
+                {"nome": "ii", "tipo_dado": "float", "tipo_campo": "text"}
+            ]
+        },
+        {
+            "nome": "Produto",
+            "campos": [
+                {"nome": "_id", "tipo_dado": "id", "tipo_campo": "text"},
+                {"nome": "nome", "tipo_dado": "string", "tipo_campo": "text"},
+                {"nome": "ncm", "tipo_dado": "id", "tipo_campo": "select", "relacao": {"entidade": "NCM", "campo": "_id"}}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+        <!--<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">-->
+        <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+
+        <!--<link href="./examples.css" rel="stylesheet" type="text/css">-->
+        
+        <!-- <script type="text/javascript" src="appweb/cordova.js"></script> -->
+
+        <!-- LIBS -->
+        <script type="text/javascript" src="assets/js/lib/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="assets/js/lib/angular.min.js"></script>
+
+        <script>
+            var conteudo = JSON.parse('{"nome":"João Marcos Mareto Calado", "matricula":"134", "objetivo":"Hipertrofia", "avaliador":"Rodrigo Carecão Barbudo", "nomeNegocio":"TotalFit", "logo":"http://localhost:8088/wm/imgs/n/2016-04/56b3ca0d51226205048b45a1-57059c3f50e7df1229556dd6.jpeg", "data":"02/02/2016","anamnese":{"objetivo":"n","pratica":"n","medicamento":"n","cirurgia":"n","doenca":"n","observacao":"n","refeicoes":"4","hidrica":"1","bebiba":"0","fuma":"0","apetite":"0","whey":true,"bcaa":true,"no2":false,"creatina":true,"glutamina":true,"albumina":true,"dextrose":true,"maltodextrina":true,"waxy":true,"termogenicos":true,"qsono":"0","hsono":"8"},"parq":{"um":"0","dois":"0","tres":"0","quatro":"0","cinco":"0","seis":"0","sete":"0"},"medidas":{"peso":65,"imc":23.59,"imcRisco":["(Normal)","text-primary"],"marinha":-32.2,"altura":1.66,"pescoco":1,"ombro":1,"toraxRelaxado":1,"toraxInspirado":1,"cintura":11,"rcq":1,"rcqRisco":["(Risco Muito Alto)","text-danger"],"ca":"1","caRisco":["(Faixa Ideal)","text-primary"],"abdomem":1,"quadril":11,"bracoRelaxadoDireito":1,"bracoRelaxadoEsquerdo":1,"bracoContraidoDireito":111,"bracoContraidoEsquerdo":11,"antebracoDireito":1,"antebracoEsquerdo":11,"coxaDireita":1,"coxaEsquerda":1,"panturrilhaDireita":1,"panturrilhaEsquerda":1},"composicao":{"radio":5.5,"femural":9.2,"protocolo":3,"subescapular":25,"tricipital":12,"supraIliaca":30,"abdominal":20,"pesoOsseo":10.267,"pesoResidual":15.665,"gorduraAtual":19.09,"massaGorda":12.408,"massaMagra":26.66,"bicipital":null,"axilarMedia":null,"peitoral":null,"coxa":null,"panturrilha":null},"foto1":null,"foto2":null,"foto3":null,"anotacoes":"asdasd"}');        
+        </script>		
+
+        <script type="text/javascript" src="assets/js/lib/jquery.flot.min.js"></script>
+        <script type="text/javascript" src="assets/js/lib/jquery.flot.resize.min.js"></script>
+        <script type="text/javascript" src="assets/js/lib/jquery.flot.pie.min.js"></script>
+        <script type="text/javascript" src="assets/js/lib/angular-flot.js"></script>
+
+        <!-- CONTROLLERS -->
+        <script type="text/javascript" src="assets/js/pdfController.js"></script>
+
+        <!-- OUTROS -->
+        <script type="text/javascript" src="assets/js/utils.js"></script>
+        <script type="text/javascript" src="assets/js/app.js"></script>
+
+        <title>Avaliação</title>
+        
+        <style>
+            body {
+                font-family: "Open Sans","HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            table, th, td {
+                border: 1px solid black;
+            }
+            .text-left{text-align: left;}
+            .text-right{text-align: right;}
+            .text-center{text-align: center;}
+            .bg {background-color: #dedede;}            
+            .bold {font-weight: bold;} 
+            
+            .table1{
+                font-size: 12px;
+            }
+            .table1 td, .table1 th{
+                padding: 6px;
+            }
+            .p1 {
+                font-size: 12px;
+            }
+
+            .text-warning{color: #f4c414;}
+            .text-danger{color: #ff5f5f}
+            .text-primary{color: #13c4a5}
+            
+            .bg1 {
+                background-color: #ddd;
+            }
+            
+            .bg2 {
+                background-color: #eee;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+                margin: 0px;
+                line-height: 1.1;
+            }
+            
+        </style>
+
+    </head>
+    <body id="body" ng-app="workoutapp" style="max-width: 210mm;">
+
+
+        <section ng-controller="PdfController as c">
+
+            <table class="table1">
+                <tr class="">
+                    <td class="" rowspan="2" style="width: 20mm;">
+                        <img ng-src="{{avaliacao.logo}}" style="width:20mm;max-height: 40mm"/>
+                    </td>
+                    <td class="bold text-center bg1" colspan="2">
+                        <h1>AVALIAÇÃO</h1>
+                        <span ng-bind="avaliacao.nomeNegocio"></span>
+                    </td>
+                </tr>
+                <tr class="" style="font-size: 13px">
+                    <td class="bold" >
+                        <span ng-bind="avaliacao.nome"></span>
+                        <span ng-hide="avaliacao.matricula === undefined"> - </span>
+                        <span ng-bind="avaliacao.matricula"></span>
+                    </td>
+                    <td class="text-center" style="width: 25mm;">
+                        <span ng-bind="avaliacao.data"></span>
+                    </td>
+                </tr>
+            </table>            
+            
+            <br/>
+            <table class="table1">
+                <tr class="">
+                    <td class="bg1 bold" style="width:15%;">
+                        Objetivos: 
+                    </td>
+                    <td class="text-left" style="width:35%;">
+                        <span ng-bind="avaliacao.objetivo"></span>
+                    </td>
+                    <td class="bg1 bold" style="width:15%;">
+                        Avaliador: 
+                    </td>
+                    <td class="" style="width:35%;">
+                        <span ng-bind="avaliacao.avaliador"></span>
+                    </td>
+                </tr>
+                </tr>
+            </table>            
+            <br/>
+            
+            Peso e Altura
+            <table class="table1">
+                <thead>
+                    <tr class="text-center">
+                        <th class="bg1" width="50%" ng-hide="suprimirVazios && avaliacao.medidas.peso === undefined">Peso</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.altura === undefined">Altura</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.peso === undefined">
+                            <span ng-bind="avaliacao.medidas.peso | kg"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.altura === undefined">
+                            <span ng-bind="avaliacao.medidas.altura | numericToString"></span> m
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            
+            Medidas em circunferências (cm)
+            <table class="table1">
+                <thead>
+                    <tr class="text-center">
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.pescoco === undefined">Pescoço</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.ombro === undefined">Ombro</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.bracoRelaxadoDireito === undefined">Braço D. relax.</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.bracoRelaxadoEsquerdo === undefined">Braço E. relax.</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.bracoContraidoDireito === undefined">Braço D. contr.</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.bracoContraidoEsquerdo === undefined">Braço E. contr.</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.antebracoDireito === undefined">Antebraço D.</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.antebracoEsquerdo === undefined">Antebraço E.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.pescoco === undefined">
+                            <span ng-bind="avaliacao.medidas.pescoco | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.ombro === undefined">
+                            <span ng-bind="avaliacao.medidas.ombro | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.bracoRelaxadoDireito === undefined">
+                            <span ng-bind="avaliacao.medidas.bracoRelaxadoDireito | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.bracoRelaxadoEsquerdo === undefined">
+                            <span ng-bind="avaliacao.medidas.bracoRelaxadoEsquerdo | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.bracoContraidoDireito === undefined">
+                            <span ng-bind="avaliacao.medidas.bracoContraidoDireito | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.bracoContraidoEsquerdo === undefined">
+                            <span ng-bind="avaliacao.medidas.bracoContraidoEsquerdo | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.antebracoDireito === undefined">
+                            <span ng-bind="avaliacao.medidas.antebracoDireito | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.antebracoEsquerdo === undefined">
+                            <span ng-bind="avaliacao.medidas.antebracoEsquerdo | numericToString"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            <table class="table1">
+                <thead>
+                    <tr class="text-center">
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.toraxRelaxado === undefined">Tórax relax.</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.toraxInspirado === undefined">Tórax insp.</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.cintura === undefined">Cintura</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.abdomem === undefined">Abdomem</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.quadril === undefined">Quadril</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.coxaDireita === undefined">Coxa D.</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.coxaEsquerda === undefined">Coxa E.</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.panturrilhaDireita === undefined">Pantu. D.</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.panturrilhaEsquerda === undefined">Pantu. E.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.toraxRelaxado === undefined">
+                            <span ng-bind="avaliacao.medidas.toraxRelaxado | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.toraxInspirado === undefined">
+                            <span ng-bind="avaliacao.medidas.toraxInspirado | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.cintura === undefined">
+                            <span ng-bind="avaliacao.medidas.cintura | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.abdomem === undefined">
+                            <span ng-bind="avaliacao.medidas.abdomem | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.quadril === undefined">
+                            <span ng-bind="avaliacao.medidas.quadril | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.coxaDireita === undefined">
+                            <span ng-bind="avaliacao.medidas.coxaDireita | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.coxaEsquerda === undefined">
+                            <span ng-bind="avaliacao.medidas.coxaEsquerda | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.panturrilhaDireita === undefined">
+                            <span ng-bind="avaliacao.medidas.panturrilhaDireita | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.panturrilhaEsquerda === undefined">
+                            <span ng-bind="avaliacao.medidas.panturrilhaEsquerda | numericToString"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br/>
+            Dobras Cutâneas (mm) e Medidas Ósseas (cm)
+            <table class="table1">
+                <thead>
+                    <tr class="text-center">
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.subescapular === undefined">Subescapular</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.bicipital === undefined">Bicipital</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.tricipital === undefined">Tricipital</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.axilarMedia === undefined">Axilar-média</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.supraIliaca === undefined">Supra-ilíaca</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.peitoral === undefined">Peitoral</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.subescapular === undefined">
+                            <span ng-bind="avaliacao.composicao.subescapular | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.bicipital === undefined">
+                            <span ng-bind="avaliacao.composicao.bicipital | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.tricipital === undefined">
+                            <span ng-bind="avaliacao.composicao.tricipital | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.axilarMedia === undefined">
+                            <span ng-bind="avaliacao.composicao.axilarMedia | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.supraIliaca === undefined">
+                            <span ng-bind="avaliacao.composicao.supraIliaca | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.peitoral === undefined">
+                            <span ng-bind="avaliacao.composicao.peitoral | numericToString"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>            
+             <br/>
+            <table class="table1">
+                <thead>
+                    <tr class="text-center">
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.abdominal === undefined">Abdominal</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.coxa === undefined">Coxa</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.panturrilha === undefined">Panturrilha</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.radio === undefined">Biestiloide radio-ulnar</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.femural === undefined">Biepicondilo femural</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.abdominal === undefined">
+                            <span ng-bind="avaliacao.composicao.abdominal | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.coxa === undefined">
+                            <span ng-bind="avaliacao.composicao.coxa | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.panturrilha === undefined">
+                            <span ng-bind="avaliacao.composicao.panturrilha | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.radio === undefined">
+                            <span ng-bind="avaliacao.composicao.radio | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.femural === undefined">
+                            <span ng-bind="avaliacao.composicao.femural | numericToString"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>        
+            
+            <br/>
+            
+            Indicadores
+            <table class="table1">
+                <thead>
+                    <tr class="text-center">
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.gorduraAtual === undefined">% de Gordura</th>
+                        <th class="bg1" ng-hide="suprimirMarinha && suprimirVazios && avaliacao.medidas.marinha === undefined">% de Gordura - Marinha</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.imc === undefined">IMC</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.rcq === undefined">Relação Cintura Quadril</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.medidas.ca === undefined">Circuferência Abdominal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.gorduraAtual === undefined">
+                            <span ng-bind="avaliacao.composicao.gorduraAtual | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.marinha === undefined">
+                            <span ng-bind="avaliacao.medidas.marinha | numericToString"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.imc === undefined">
+                            <span ng-bind="avaliacao.medidas.imc | numericToString"></span>
+                            <br/>
+                            <span ng-class="avaliacao.medidas.imcRisco[1]" ng-bind="avaliacao.medidas.imcRisco[0]"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.rcq === undefined">
+                            <span ng-bind="avaliacao.medidas.rcq | numericToString"></span>
+                            <br/>
+                            <span ng-class="avaliacao.medidas.rcqRisco[1]" ng-bind="avaliacao.medidas.rcqRisco[0]"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.medidas.ca === undefined">
+                            <span ng-bind="avaliacao.medidas.ca | numericToString"></span>
+                            <br/>
+                            <span ng-class="avaliacao.medidas.caRisco[1]" ng-bind="avaliacao.medidas.caRisco[0]"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            
+            Composição <small>(<span ng-bind="avaliacao.composicao.protocolo"></span>)</small>
+            <table class="table1">
+                <thead>
+                    <tr class="text-center">
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.massaGorda === undefined">Peso Gordo</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.massaMagra === undefined">Peso Magro</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.pesoOsseo === undefined">Peso Ósseo</th>
+                        <th class="bg1" ng-hide="suprimirVazios && avaliacao.composicao.pesoResidual === undefined">Peso Residual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.massaGorda === undefined">
+                            <span ng-bind="avaliacao.composicao.massaGorda | kg"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.massaMagra === undefined">
+                            <span ng-bind="avaliacao.composicao.massaMagra | kg"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.pesoOsseo === undefined">
+                            <span ng-bind="avaliacao.composicao.pesoOsseo | kg"></span>
+                        </td>
+                        <td ng-hide="suprimirVazios && avaliacao.composicao.pesoResidual === undefined">
+                            <span ng-bind="avaliacao.composicao.pesoResidual | kg"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <br/>
+            
+            <div style="min-width: 320px;">
+                <!--para o grafico ser exibido, ele deve estar dentro de um container com tamanho especificado-->
+               <flot dataset="dataComposicao" options="optionsComposicao" height="150px"></flot>
+            </div>
+
+            <br/>
+            
+            
+        </section>
+
+    </body>
+</html>

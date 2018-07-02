@@ -1,0 +1,31 @@
+(function () {
+    angular.module('initModule',
+        [
+            'workoutapp-states',
+            'ngFileUpload',
+            'toaster',
+            'Servico-Evento',
+            'Servico-Request',
+            'App-Controller',
+			'Listagem-Controller',
+            'Detalhes-Controller',
+            'Menus-Controller',
+            'Menu-Controller',
+            'Conteudos-Controller',
+            'Conteudo-Controller',
+            'Colaboradores-Controller',
+            'Colaborador-Controller',
+            'Categorias-Controller',
+            'Categoria-Controller',
+            'Negocio-Controller',
+            'NavBar-Controller',
+            'Servico-Data',
+            'Custom-Directive',
+            'ngAnimate',
+            'modlogin'
+        ]
+    ).
+    config(['$compileProvider', function ($compileProvider) {
+        $compileProvider.debugInfoEnabled(false);
+    }]);
+})();

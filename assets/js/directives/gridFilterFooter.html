@@ -1,0 +1,27 @@
+<!--<div class="center" ng-class="{'invisivel' : hideLoad }" style="padding: 5px;background-color: rgb(245,246,247);">
+    <i class="fa fa-refresh faspin" style="font-size:20px;color:white;"></i>
+</div>
+<footer class="panel-footer">
+    <div class="row text-center">
+        <small class="text-muted inline m-t-small m-b-small">
+            Exibindo <span ng-bind="grid.inicio"></span> a <span ng-bind="grid.fim"></span> de <span ng-bind="grid.total"></span> registros.
+        </small>
+    </div>
+    <div class="row text-center" ng-class="{'invisivel' : grid.paginas === 1}">
+        <ul class="pagination pagination-small m-t-none m-b-none">
+            <li class="pointer" ng-class="grid.paginaAtual == 1 ? 'disabled no-events' : 'enabled'">
+                <a ng-click="voltarUmNoGrid()">
+                    <i class="fa fa-chevron-left"></i>
+                </a>
+            </li>
+            <li class="pointer bold" ng-repeat="p in grid.paginasArray track by $index" ng-class="grid.indexAtual == {{$index + 1}} ? 'disabled' : 'enabled'">
+                <a ng-click="irParaIndiceGrid(p, $index+1)" ng-class="grid.indexAtual == {{$index + 1}} ? 'gray' : 'enabled'">{{p}}</a>
+            </li>
+            <li class="pointer" ng-class="grid.paginaAtual == grid.paginas ? 'disabled no-events' : 'enabled'">
+                <a ng-click="avancarUmNoGrid()" >
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</footer>-->

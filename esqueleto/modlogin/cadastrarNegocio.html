@@ -1,0 +1,158 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <section id="content" ng-controller="LoginController as c">
+            <div class="main padder">
+                <div class="row">
+                    <div class="col-lg-4 col-lg-offset-4 m-t-large padding-none">
+                        <section class="">
+                            <form class="panel-body margin-none">
+                                <div class="form-group">
+                                    <label class="control-label">Nome<span class="text-danger">*</span>:</label>
+                                    <div class="">
+                                        <input id="nome" class="form-control bold" type="text" name="nome" ng-model="novoNegocio.nome"
+                                               validationFieldRequired />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Logo<span class="text-danger"></span>:</label>
+                                    <div class="text-center">
+                                        <div class="text-center center-block width-100p" ng-class="{ 'block-size-fix-1' : hideFaLogo == false }">
+                                            <img align="middle" class="logo2 center-block" id="mn-logo" ng-src="{{novoNegocio.logo}}" ng-hide="hideFaLogo == false">
+                                            <i class="fa fa-picture-o margin10 fa-perfil" ng-hide="hideFaLogo"></i>
+                                            <span class="h4" ng-hide="hideFaLogo"></br>Sem Imagem</span>
+                                        </div>
+                                        <br />
+                                        <div class="file-input-wrapper btn btn-info margens-h-10" style="display: inline;">Alterar Logo
+                                            <input type="file" ng-file-select ng-model="picFile" name="file" accept=".jpeg,.jpg,.gif,.png" ng-file-change="c.atualizarLogo(picFile[0])"
+                                                   ng-multiple="false" onclick="this.value = null" style="width: 112px; height: 33px;" />
+                                        </div>
+                                        <button class="btn btn-white margens-h-10" ng-click="c.removerLogo()">Remover</button>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="control-label">CEP:</label>
+                                    <div class="">
+                                        <div class="input-group">
+                                            <input  type="text" class="form-control" name="cep"
+                                                    ng-model="novoNegocio.cep" id="cep"
+                                                    placeholder="ex: 99999-999  (apenas números)"
+                                                    onfocus="maskOut(this, 'cep')"
+                                                    onblur="maskIn(this, 'cep')"
+                                                    onkeyup="checktype(this, 'cep');"/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-info" ng-click="getEndereco()">Localizar</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Rua<span class="text-danger">*</span>:</label>
+                                    <div class="">
+                                        <input id="rua" class="form-control" type="text" name="rua" ng-model="novoNegocio.rua"
+                                               validationFieldRequired>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Número:</label>
+                                    <div class="">
+                                        <input id="numero" id="numero" class="form-control" type="number" name="numero" ng-model="novoNegocio.numero">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Compl.:</label>
+                                    <div class="">
+                                        <input id="compl" id="complemento" class="form-control" type="text" name="complemento" ng-model="novoNegocio.complemento">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Bairro<span class="text-danger">*</span>:</label>
+                                    <div class="">
+                                        <input id="bairro" class="form-control" type="text" name="bairro" ng-model="novoNegocio.bairro"
+                                               validationFieldRequired>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Cidade<span class="text-danger">*</span>:</label>
+                                    <div class="">
+                                        <input id="cidade" class="form-control" type="text" name="cidade" ng-model="novoNegocio.cidade"
+                                               validationFieldRequired>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Estado<span class="text-danger">*</span>:</label>
+                                    <div class="">
+                                        <select id="estado" class="form-control" name="estado"  ng-model="novoNegocio.estado" validationFieldRequired>
+                                            <option value="">Selecione</option>
+                                            <option value="AC">AC</option>
+                                            <option value="AL">AL</option>
+                                            <option value="AM">AM</option>
+                                            <option value="AP">AP</option>
+                                            <option value="BA">BA</option>
+                                            <option value="CE">CE</option>
+                                            <option value="DF">DF</option>
+                                            <option value="ES">ES</option>
+                                            <option value="GO">GO</option>
+                                            <option value="MA">MA</option>
+                                            <option value="MG">MG</option>
+                                            <option value="MS">MS</option>
+                                            <option value="MT">MT</option>
+                                            <option value="PA">PA</option>
+                                            <option value="PB">PB</option>
+                                            <option value="PE">PE</option>
+                                            <option value="PI">PI</option>
+                                            <option value="PR">PR</option>
+                                            <option value="RJ">RJ</option>
+                                            <option value="RN">RN</option>
+                                            <option value="RS">RS</option>
+                                            <option value="RO">RO</option>
+                                            <option value="RR">RR</option>
+                                            <option value="SC">SC</option>
+                                            <option value="SE">SE</option>
+                                            <option value="SP">SP</option>
+                                            <option value="TO">TO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--
+                                <map center="current-location" zoom="6" on-click="addMarker()" class="margin10">
+                                    <marker position="{{lat}},{{lng}}" title="Meu Negócio" ></marker>
+                                </map>
+                                -->
+
+                                <div class="line line-dashed m-t-large"></div>
+
+
+                                <span class="h4">Para concluir o cadastro, insira login e senha do usuário proprietário e clique em Criar.</span>
+                                <br/>
+                                <br/>
+                                <div class="form-group padder-dtf">
+                                    <label class="control-label">Login (e-mail previamente cadastrado)<span class="text-danger">*</span>:</label>
+                                    <div class="">
+                                        <input id="login" class="form-control bold bg-focus" type="text" name="nome" ng-model="novoNegocio.login"
+                                               validationFieldRequired />
+                                    </div>
+                                </div>
+
+                                <div class="form-group padder-dtf">
+                                    <label class="control-label">Senha<span class="text-danger">*</span>:</label>
+                                    <div class="">
+                                        <input id="senha" class="form-control bold bg-focus" type="password" name="nome" ng-model="novoNegocio.senha"
+                                               validationFieldRequired />
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-info" ng-click="c.novoNegocio($event)">Criar</button>
+                            </form>
+                        </section>
+                    </div>
+
+                </div>
+        </section>
+    </body>
+</html>

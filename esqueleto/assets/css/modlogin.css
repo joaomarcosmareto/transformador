@@ -1,0 +1,112 @@
+.bg-transparent {background: transparent;}
+/* BOTTOM BARS ================================= */
+.bar  {display:block;}
+.bar:before, .bar:after   {
+  content:'';
+  height:2px;
+  width:0;
+  bottom:1px;
+  position:absolute;
+  background:#5DB3A6;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%;
+}
+
+/* active state */
+.material-type-text:focus ~ .bar:before, .material-type-text:focus ~ .bar:after {
+  width:50%;
+}
+.only-bottom-border{
+  border-left: none;
+  border-top: none;
+  border-right: none;
+  border-radius: 0;
+  border-bottom-color: #5DB3A6;
+}
+.size-24{font-size: 24px;}
+.size-20{font-size: 20px;}
+.size-18{font-size: 18px;}
+.size-16{font-size: 16px;}
+.font-size-modlogin{font-size:24px;}
+.btn-192636{
+  background: #3663A4;
+  color: #5DB3A6;
+}
+
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple:after {
+  content: "";
+  background: white;
+  filter: brightness(110%);
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  padding-top: 200%;
+  padding-left: 200%;
+  margin-top: -70%;
+  margin-left: -70%;
+  opacity: 0;
+  transition: all 0.3s
+}
+
+.ripple-color1:after {
+  background: #5DB3A6;
+}
+
+.ripple:active:after {
+  padding-top: 0%;
+  padding-left: 0%;
+  margin-top: -20%;
+  margin-left: 50%;
+  opacity: 1;
+  transition: 0s
+}
+
+.btn-style1 {
+  font-size: 24px; background-color: #5DB3A6; color: white;
+}
+
+.btn-style2 {
+  font-size: 24px; background-color: white; color: #5DB3A6;
+}
+
+.group        {
+  position:relative;
+}
+.material-type-text{
+  font-size:26px;
+  padding:4px;
+  display:block;
+  width:100%;
+  border:none;
+  border-bottom:1px solid #5DB3A6;
+}
+.material-type-text:focus     { outline:none; }
+
+.btn-consultar, .btn-consultar:hover, .btn-consultar:focus{
+  background: #5DB3A6;
+  color: white;
+  border-color: #5DB3A6;
+  padding: 10px 12px;
+  text-align: center;
+}
+.btn-consultar > .h3{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 13px;
+}
+.btn-192636, .btn-192636:hover, .btn-192636:focus{
+  background: #3663A4;
+  color: white;
+}

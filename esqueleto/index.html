@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="application-name" content="NOME DO SISTEMA">
+        <meta name="description" content="DESCRIÇÃO DO SISTEMA">
+        <meta name="author" content="Echo Ways Soluções Tecnológicas">
+
+
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css?1">
+        <link rel="stylesheet" type="text/css" href="assets/css/font-igreja.css?1">
+        <link rel="stylesheet" type="text/css" href="assets/css/style_igreja.css?1">
+        <link rel="stylesheet" type="text/css" href="assets/css/navbar-login.css?1" />
+        <link rel="stylesheet" type="text/css" href="assets/css/body.css?1" />
+        <link rel="stylesheet" type="text/css" href="assets/css/ajaxLoading.css?1" />
+        <link rel="stylesheet" type="text/css" href="assets/css/toaster.css?1" />
+        <link rel="stylesheet" type="text/css" href="assets/css/modlogin.css?1" />
+
+        <title>NOME DO SISTEMA</title>
+
+    </head>
+        <body class="body_top" ng-controller="AppController as c">
+
+        <div class="container-jm" >
+            <toaster-container toaster-options="{'time-out': 5000, 'position-class': 'toast-top-center'}"></toaster-container>
+            <div ui-view ></div>
+        </div>
+
+        <!-- CORDOVA -->
+        <script type="text/javascript" src="cordova.js?1"></script>
+        <script type="text/javascript" src="cordova_plugins.js?1"></script>
+
+        <script type="text/javascript" src="assets/js/lib/angular.min.js?1"></script>
+        <script type="text/javascript" src="assets/js/lib/angular-ui-router.min.js?1"></script>
+        <script type="text/javascript" src="assets/js/lib/angular-animate.min.js?1"></script>
+        <script type="text/javascript" src="assets/js/lib/jquery-2.1.1.min.js?1"></script>
+        <script type="text/javascript" src="assets/js/lib/toaster.js?1"></script>
+        <script type="text/javascript" src="assets/js/lib/ng-file-upload.js?1"></script>
+
+        <script type="text/javascript" src="assets/js/lib/moment-with-locales.js?1"></script>
+
+        <!--<script type="text/javascript" src="assets/js/lib/angular-carousel.min.js?1"></script>-->
+
+        <script type="text/javascript" src="assets/js/lib/bootstrap.min.js?1"></script>
+        <!--<script type="text/javascript" src="assets/js/lib/bootstrap-datepicker-new.js?1"></script>-->
+
+        <script type="text/javascript" src="assets/js/lib/joyride.js?1"></script>
+
+        <script type="text/javascript" src="assets/js/lib/combodate.js?1"></script>
+
+        <script type="text/javascript" src="assets/js/lib/ckeditor/ckeditor.js"></script>
+
+        <!-- SERVICES -->
+        <script type="text/javascript" src="assets/js/services/servicoEvento.js?1"></script>
+        <script type="text/javascript" src="assets/js/services/servicoRequest.js?1"></script>
+        <script type="text/javascript" src="assets/js/services/servicoData_appIgreja.js?1"></script>
+
+        <!-- CONTROLLERS -->
+        <script type="text/javascript" src="assets/js/controllers/appController.js?1"></script>
+        <script type="text/javascript" src="assets/js/controllers/ListagemController.js?1"></script>
+        <script type="text/javascript" src="assets/js/controllers/NegocioController.js?1"></script>
+        <script type="text/javascript" src="assets/js/controllers/DetalhesController.js?1"></script>
+        <script type="text/javascript" src="assets/js/controllers/MenusController.js?1"></script>
+        <script type="text/javascript" src="assets/js/controllers/MenuController.js?1"></script>
+        <script type="text/javascript" src="assets/js/controllers/ConteudosController.js?1"></script>
+        <script type="text/javascript" src="assets/js/controllers/ConteudoController.js?1"></script>
+        <script type="text/javascript" src="assets/js/controllers/ColaboradoresController.js?1"></script>
+        <script type="text/javascript" src="assets/js/controllers/ColaboradorController.js?1"></script>
+        <script type="text/javascript" src="assets/js/controllers/CategoriasController.js?1"></script>
+        <script type="text/javascript" src="assets/js/controllers/CategoriaController.js?1"></script>
+        <script type="text/javascript" src="assets/js/controllers/NavbarController.js?1"></script>
+
+        <!-- DIRECTIVES -->
+        <script type="text/javascript" src="assets/js/directives/directives.js"></script>
+
+        <!-- OUTROS -->
+        <script type="text/javascript" src="assets/js/utils.js?1"></script>
+        <script type="text/javascript" src="assets/js/maskvalid.js?1"></script>
+        <script type="text/javascript" src="backend_appIgreja.js?1"></script>
+        <script type="text/javascript" src="assets/js/simulate_cordova.js?1"></script>
+        <script type="text/javascript" src="assets/js/states_appIgreja.js?1"></script>
+        <script type="text/javascript" src="assets/js/app_appIgreja.js?1"></script>
+        <script type="text/javascript" src="modlogin/js/modlogin.js?1"></script>
+
+        <script>
+            function deviceReady() {
+                if (AdMob) {
+                    var admobid = {};
+                    if( /(android)/i.test(navigator.userAgent) ) {
+                        admobid = { // for Android
+                            banner: 'ca-app-pub-9401353020089950/6485071128',
+                            //interstitial: ''
+                        };
+                    }
+                    AdMob.createBanner({
+                        adId : admobid.banner,
+                        adSize: 'SMART_BANNER',
+                        position : AdMob.AD_POSITION.BOTTOM_CENTER,
+                        autoShow : true,
+                        isTesting: true
+                    });
+                }
+                // angular.bootstrap(document.body, ['workoutapp']);
+                angular.bootstrap(document.body, ['initModule']);
+                window.setTimeout(function () {
+                    navigator.splashscreen.hide();
+                }, 250);
+            }
+
+            angular.element(document).ready(function () {
+                if (window.cordova) {
+                    console.log("Running in Cordova, will bootstrap AngularJS once 'deviceready' event fires.");
+                    document.addEventListener("deviceready", deviceReady, false);
+                } else {
+                    console.log("Running in browser, bootstrapping AngularJS now.");
+                    angular.bootstrap(document.body, ['initModule']);
+                }
+            });
+        </script>
+    </body>
+</html>
