@@ -6,8 +6,8 @@ var versaoAppAnterior = localStorage.getItem("versaoApp");
 var appAluno = false;
 var appMode = "appWeb";
 
-var urlBase = "https://gerador.echo.com:4430";
-// var urlBase = "http://gerador.echo.com:8088";
+//var urlBase = "https://gerador.echo.com:4430";
+var urlBase = "http://localhost:8088/transformador";
 
 var appNegocioId = null;
 
