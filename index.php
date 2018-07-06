@@ -1,5 +1,7 @@
 <?php
 
+ini_set('max_execution_time', 3);
+
 function recurse_copy($src,$dst) {
     $dir = opendir($src);
     @mkdir($dst);
@@ -14,7 +16,7 @@ function recurse_copy($src,$dst) {
         }
     }
     closedir($dir);
-}
+};
 
 $modelo = '{
     "nome": "Teste",
@@ -53,106 +55,147 @@ $modelo = '{
 //var_dump(json_decode($modelo, true));
 
 $modelo = json_decode($modelo, true);
-$lines = file ('esqueleto/assets/js/controllers/ModeloController.js');
+$pathFile = 'esqueleto/assets/js/controllers/ModeloController.js';
+//$lines = file ();
 
-$GLOBALS['R'] = $modelo["caracter_replace"];
+//$GLOBALS['R'] = $modelo["caracter_replace"];
 
-var_dump(renderLinha($lines[3], $modelo["entidades"][0]));
+//var_dump(renderLinha($lines[3], $modelo["entidades"][0]));
 
-//$retorno = "";
-//foreach ($lines as $line_num => $line) {
-////    echo "Linha #<b>{$line_num}</b> : " . htmlspecialchars($line) . "<br>\n";
-//    $lineTrim = trim($line);
-//    if(($line_num === 1 && $lineTrim === $R."REPLACE"))
-//    {
-//        break;
-//    }
-//    
-//    if(seNovoTrecho($lineTrim))
-//        processarTrecho($lines, $line_num, getFinalLineTrecho($lines, $line_num));
-//    else
-//        $result += $line;
-//}
-//
-//$lineTrim = trim($line);
-//if(($line_num === 1 && $lineTrim === $R."REPLACE"))
-//{
-//    return;
-//}
+//var_dump($modelo["entidades"]);
+//echo "<br><br><br><br>";
+processarArquivo($pathFile, $modelo);
+//echo "xxx";
 
-function processarTrecho($lines, $line_num, $final_trecho_num){
-    
-    $lineTrim = $lines[$line_num];
-    
-    if(strstr($lineTrim, $R."For:")){
-        $ifor = explode(" ", $lineTrim)[1];
-        //echo $ifor;
-        getConteudo($lines, $line_num);
+function processarArquivo($pathFile, $modelo){
+    $lines = file($pathFile);
+    //var_dump($lines);
+    $countLines = count($lines);
+    $finalFile = "";
+    $idnex2 = 0;
+    for ($index = 0;$index < $countLines;) {
+//        $index2++;
+        $index += renderLinha($lines, $index, $modelo, $finalFile);
+//        echo "<br/>";
+//        echo $r."   ".$lines[$index]."              ".$index;
+//        echo "<br/>";
+//        if($index2 >= $countLines)
+//            break;
         
-        foreach ($modelo[$ifor] as $i => $item) {
-            renderLinha($line, $ifor, $item);
-        }
+//        $line = $lines[$index];
+//        if(seNovoTrecho($line)){
+//            processarTrecho($lines, $indexLine, $modelo, $finalFile);
+//            echo "<br/><br/>";
+//            var_dump($line);
+//            echo "<br/><br/>";
+//        }else{
+//            $elements = [];
+//            preg_match_all("/.*§(.*)§.*/U", $line, $elements);
+//
+//            foreach ($elements[1] as $toReplace) {
+//                $finalFile .= str_replace('§'.$toReplace.'§', $modelo[$toReplace], $line);
+//            }
+//        }        
     }
-}
+    
+    var_dump($finalFile);
+};
 
-function renderLinha($line, $modelo){
+
+function renderLinha($lines, $indexLine, $modelo, &$finalFile){
 //    var_dump($modelo);
     //var_dump($line);
-    //para cada $ $ da linha, fazer:
-    $elements = [];
-    preg_match_all("/.*§(.*)§.*/U", $line, $elements);
-    //var_dump($elements);
     
-    foreach ($elements[1] as $toReplace) {
-
-        $line = str_replace('§'.$toReplace.'§', $modelo[$toReplace], $line);
-        
-        //TODO: parte com ponto
-//        $toReplaceArr = explode($toReplace, ".");        
-//        
-//        if(count($toReplaceArr) === 1){
-//            str_replace($R.$toReplace.$R, $modelo[$nome], $line);
-//        }elseif(count($toReplaceArr) === 2){
-//            str_replace($R.$toReplaceArr[0].$toReplaceArr[1].$R, $modelo[$toReplaceArr[0]][$toReplaceArr[1]], $line);
-//        }   
-    }
+    $line = $lines[$indexLine];
     
-    return $line;
-}
-
-function xxx($lines, $index = 0){
-    $countLines = count($lines);
-    $lvl = 1;
-    for (;$index < $countLines;$index++) {
-        //var_dump(strstr($lineTrim, $R."For:"));
-        if(seNovoTrecho($lineTrim)){
-            $ifor = explode(" ", $lineTrim)[1];//TODO ver se tem mais de um
-            echo $ifor;
-            getConteudo($lines, $line_num);
+//    if($indexLine === 8)
+//        echo "XXXXXXXXXXXX".$line;
+    
+    if(seNovoTrecho($line)){
+//        echo "<br/><br/>";
+//        var_dump($line);
+//        echo "<br/><br/>";
+//        if($indexLine === 8)
+//            echo "111111111".$line;
+        return processarTrecho($lines, $indexLine, $modelo, $finalFile);
+    }else{
+        if(strstr($line, "§File: ")){
+            return 1;
+            //TODO:
         }
+        if(strstr($line, "§§")){
+            return 1;
+            //TODO:
+        }
+        $elements = [];
+        preg_match_all("/.*§(.+)§.*/U", $line, $elements);
+
+        foreach ($elements[1] as $toReplace) {
+            $finalFile .= str_replace('§'.$toReplace.'§', $modelo[$toReplace], $line)."<br/>";
+        }
+        if(empty($elements[1])){
+            $finalFile .= $line."<br>";
+        }
+//        if($indexLine === 8)
+//            echo "ZZZZZZZZ".$line;
+        return 1;
     }
-}
+};
+
+function processarTrecho($lines, $indexLine, $modelo, &$finalFile){
+    
+    $l = $lines[$indexLine];
+        
+    if(strstr($l, "§For:")){//TODO: substituir pro preg_macth
+        
+        $entidadeFor = explode(" ", trim($l))[1];
+        //echo "BB".$entidadeFor."BB";
+        $entidadeFor = trim(str_replace("§", "", $entidadeFor));
+        //echo "AAAA".$entidadeFor."AAAA";
+        //TODO excecao se line_num+1 > count($lines), pq poderia tentar acessar index q n existe
+        
+        if($indexLine === 8){
+//            echo "ZZZZZZZZ".$l."ZZZZZZZ";
+//            var_dump($modelo);
+        }
+        
+        $finalLineTrecho = getFinalLineTrecho($lines, $indexLine);
+
+        foreach ($modelo[$entidadeFor] as $indexItem => $item) {
+            for ($i = $indexLine+1; $i < $finalLineTrecho;) {
+                $i += renderLinha($lines, $i, $item, $finalFile);
+            }            
+        }
+        
+        return $finalLineTrecho-$indexLine;
+    }
+    return 1;
+};
+
 
 function getFinalLineTrecho($lines, $index = 0){
     $countLines = count($lines);
-    $lvl = 1;
+
+    $lvl = 0;
     for (;$index < $countLines;$index++) {
-        if(strstr($lineTrim, $R.$R)){
+        $l = $lines[$index];
+        if(strstr($l, '§§')){
             $lvl--;
-            if($lvl === 1){
+            if($lvl === 0){
                 return $index;
             }
         }
-        if(seNovoTrecho($lineTrim)){
+        //TODO: se der $lvl negativo aqui deve ser lançado uma exceção de arquivo errado
+        if(seNovoTrecho($l)){
             $lvl++;
         }
     }
-    //TODO: se não achar nada o arquivo template ta errado, gerar exception
-}
+    //TODO: se nÃ£o achar nada o arquivo template ta errado, gerar exception
+};
 
 function seNovoTrecho($l){
-    return strstr($l, $R."For:") || strstr($l, $R."If:");
-}
+    return strstr($l, "§For:") || strstr($l, "§If:");
+};
 
 
 //$modelo = json_decode(file_get_contents('php://input'), true);

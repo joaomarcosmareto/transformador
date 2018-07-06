@@ -1,14 +1,16 @@
 §REPLACE
-§For: entidades
-§file: §nome§-Controller.js
+§For: entidades§
+§File: §nome§-Controller.js
 angular.module('§nome§-Controller', [])
 
     .controller("§nome§Controller", ['$scope', '$state', 'ServicoData', 'ServicoRequest', 'toaster', function ($scope, $state, ServicoData, ServicoRequest, toaster) {
         $scope = ServicoData.initController($scope, $state);
-
-        §For: campos | tipo_dado = 'string'§
-        $scope.§nome§ = "";
+        
+        §For: campos§
+        $scope.§nome§ = "2";
         §§
+
+        TESTE(§lFor: .entidades§);
 
         §For: campos | relacao§
         this.load§relacao.entidade§ = function() {
